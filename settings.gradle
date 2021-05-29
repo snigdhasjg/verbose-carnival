@@ -1,0 +1,4 @@
+rootProject.name = 'RandomStuff'
+include 'utility'
+include 'random'
+
