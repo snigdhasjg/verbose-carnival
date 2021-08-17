@@ -1,7 +1,11 @@
 plugins {
     id 'java'
-    id 'io.freefair.lombok' version '6.0.0-m2'
+    id 'io.freefair.lombok' version "${lombok_version}"
 }
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+assert System.properties['java.specification.version'] == '11'
 
 configurations {
     compileOnly {
@@ -10,8 +14,8 @@ configurations {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
 }
 
 test {

@@ -37,7 +37,7 @@ public class TreePrinterTest {
                         .setLeft(new TreeNode<>("Value2"))
                         .setRight(new TreeNode<>("Value3"));
 
-        assertEquals("Value1\n├── Value2\n└── Value3\n", TreePrinter.formatTree(treeNode));
+        assertEquals("Value1\n├── Value3\n└── Value2\n", TreePrinter.formatTree(treeNode));
     }
 }
 

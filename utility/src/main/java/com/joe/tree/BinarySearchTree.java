@@ -12,6 +12,10 @@ import static java.util.Objects.isNull;
 public class BinarySearchTree<T extends Comparable<T>> {
     private TreeNode<T> root;
 
+    public boolean isEmpty() {
+        return isNull(root);
+    }
+
     public BinarySearchTree<T> addNode(T value) {
         TreeNode<T> nodeToAdd = new TreeNode<>(value);
         if (isNull(root)) {
@@ -20,6 +24,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
             addNodeInOrder(root, nodeToAdd);
         }
         return this;
+    }
+
+    public void deleteNode(T value) {
+        root = deleteNodeInOrder(root, new TreeNode<>(value));
     }
 
     public T getInOrderSuccessor(T value) {
@@ -31,6 +39,32 @@ public class BinarySearchTree<T extends Comparable<T>> {
     @Override
     public String toString() {
         return TreePrinter.formatTree(root);
+    }
+
+    private TreeNode<T> deleteNodeInOrder(TreeNode<T> currentNode, TreeNode<T> data) {
+        if (isNull(currentNode)) {
+            return null;
+        }
+
+        if(data.compareTo(currentNode) < 0) {
+            currentNode.setLeft(deleteNodeInOrder(currentNode.getLeft(), data));
+        } else if(data.compareTo(currentNode) > 0) {
+            currentNode.setRight(deleteNodeInOrder(currentNode.getRight(), data));
+        } else {
+            if(isNull(currentNode.getLeft()) && isNull(currentNode.getRight())) {
+                return null;
+            } else if(isNull(currentNode.getLeft())) {
+                return currentNode.getRight();
+            } else if(isNull(currentNode.getRight())) {
+                return currentNode.getLeft();
+            } else {
+                T minValue = findLeftMostNode(currentNode.getRight()).getValue();
+                currentNode.setValue(minValue);
+                currentNode.setRight(deleteNodeInOrder(currentNode.getRight(), new TreeNode<>(minValue)));
+            }
+        }
+
+        return currentNode;
     }
 
     private TreeNode<T> inOrderSuccessor(TreeNode<T> currentNode, TreeNode<T> nodeToFind) {

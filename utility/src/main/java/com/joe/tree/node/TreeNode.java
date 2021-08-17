@@ -2,7 +2,9 @@ package com.joe.tree.node;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -10,7 +12,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>> {
-    private final T value;
+    @Setter
+    private @NonNull T value;
     private @EqualsAndHashCode.Exclude @ToString.Exclude TreeNode<T> left;
     private @EqualsAndHashCode.Exclude @ToString.Exclude TreeNode<T> right;
 
