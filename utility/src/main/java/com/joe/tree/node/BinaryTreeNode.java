@@ -11,24 +11,26 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class TreeNode<T extends Comparable<T>> implements Comparable<TreeNode<T>> {
+public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>> {
     @Setter
     private @NonNull T value;
-    private @EqualsAndHashCode.Exclude @ToString.Exclude TreeNode<T> left;
-    private @EqualsAndHashCode.Exclude @ToString.Exclude TreeNode<T> right;
+    private @EqualsAndHashCode.Exclude @ToString.Exclude
+    BinaryTreeNode<T> left;
+    private @EqualsAndHashCode.Exclude @ToString.Exclude
+    BinaryTreeNode<T> right;
 
-    public TreeNode<T> setLeft(TreeNode<T> left) {
+    public BinaryTreeNode<T> setLeft(BinaryTreeNode<T> left) {
         this.left = left;
         return this;
     }
 
-    public TreeNode<T> setRight(TreeNode<T> right) {
+    public BinaryTreeNode<T> setRight(BinaryTreeNode<T> right) {
         this.right = right;
         return this;
     }
 
     @Override
-    public int compareTo(TreeNode<T> o) {
+    public int compareTo(BinaryTreeNode<T> o) {
         return this.value.compareTo(o.value);
     }
 }

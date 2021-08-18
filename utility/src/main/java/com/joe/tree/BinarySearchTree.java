@@ -1,6 +1,6 @@
 package com.joe.tree;
 
-import com.joe.tree.node.TreeNode;
+import com.joe.tree.node.BinaryTreeNode;
 import com.joe.tree.util.TreePrinter;
 import lombok.Getter;
 
@@ -10,14 +10,14 @@ import static java.util.Objects.isNull;
 
 @Getter
 public class BinarySearchTree<T extends Comparable<T>> {
-    private TreeNode<T> root;
+    private BinaryTreeNode<T> root;
 
     public boolean isEmpty() {
         return isNull(root);
     }
 
     public BinarySearchTree<T> addNode(T value) {
-        TreeNode<T> nodeToAdd = new TreeNode<>(value);
+        BinaryTreeNode<T> nodeToAdd = new BinaryTreeNode<>(value);
         if (isNull(root)) {
             root = nodeToAdd;
         } else {
@@ -27,12 +27,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void deleteNode(T value) {
-        root = deleteNodeInOrder(root, new TreeNode<>(value));
+        root = deleteNodeInOrder(root, new BinaryTreeNode<>(value));
     }
 
     public T getInOrderSuccessor(T value) {
-        return Optional.ofNullable(inOrderSuccessor(root, new TreeNode<>(value)))
-                .map(TreeNode::getValue)
+        return Optional.ofNullable(inOrderSuccessor(root, new BinaryTreeNode<>(value)))
+                .map(BinaryTreeNode::getValue)
                 .orElse(null);
     }
 
@@ -41,7 +41,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return TreePrinter.formatTree(root);
     }
 
-    private TreeNode<T> deleteNodeInOrder(TreeNode<T> currentNode, TreeNode<T> data) {
+    private BinaryTreeNode<T> deleteNodeInOrder(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> data) {
         if (isNull(currentNode)) {
             return null;
         }
@@ -60,14 +60,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
             } else {
                 T minValue = findLeftMostNode(currentNode.getRight()).getValue();
                 currentNode.setValue(minValue);
-                currentNode.setRight(deleteNodeInOrder(currentNode.getRight(), new TreeNode<>(minValue)));
+                currentNode.setRight(deleteNodeInOrder(currentNode.getRight(), new BinaryTreeNode<>(minValue)));
             }
         }
 
         return currentNode;
     }
 
-    private TreeNode<T> inOrderSuccessor(TreeNode<T> currentNode, TreeNode<T> nodeToFind) {
+    private BinaryTreeNode<T> inOrderSuccessor(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> nodeToFind) {
         if (isNull(currentNode)) {
             return null;
         }
@@ -75,37 +75,37 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return findLeftMostNode(currentNode.getRight());
         } else {
             if (nodeToFind.compareTo(currentNode) < 0) {
-                TreeNode<T> tempTreeNode = inOrderSuccessor(currentNode.getLeft(), nodeToFind);
-                if (isNull(tempTreeNode)) {
+                BinaryTreeNode<T> tempBinaryTreeNode = inOrderSuccessor(currentNode.getLeft(), nodeToFind);
+                if (isNull(tempBinaryTreeNode)) {
                     return currentNode;
                 }
-                return tempTreeNode;
+                return tempBinaryTreeNode;
             } else {
                 return inOrderSuccessor(currentNode.getRight(), nodeToFind);
             }
         }
     }
 
-    private TreeNode<T> findLeftMostNode(TreeNode<T> currentNode) {
+    private BinaryTreeNode<T> findLeftMostNode(BinaryTreeNode<T> currentNode) {
         if (isNull(currentNode) || isNull(currentNode.getLeft())) {
             return currentNode;
         }
         return findLeftMostNode(currentNode.getLeft());
     }
 
-    private void addNodeInOrder(TreeNode<T> treeNode, TreeNode<T> nodeToAdd) {
-        if (nodeToAdd.compareTo(treeNode) < 0) {
-            if (isNull(treeNode.getLeft())) {
-                treeNode.setLeft(nodeToAdd);
+    private void addNodeInOrder(BinaryTreeNode<T> binaryTreeNode, BinaryTreeNode<T> nodeToAdd) {
+        if (nodeToAdd.compareTo(binaryTreeNode) < 0) {
+            if (isNull(binaryTreeNode.getLeft())) {
+                binaryTreeNode.setLeft(nodeToAdd);
                 return;
             }
-            addNodeInOrder(treeNode.getLeft(), nodeToAdd);
-        } else if (nodeToAdd.compareTo(treeNode) > 0) {
-            if (isNull(treeNode.getRight())) {
-                treeNode.setRight(nodeToAdd);
+            addNodeInOrder(binaryTreeNode.getLeft(), nodeToAdd);
+        } else if (nodeToAdd.compareTo(binaryTreeNode) > 0) {
+            if (isNull(binaryTreeNode.getRight())) {
+                binaryTreeNode.setRight(nodeToAdd);
                 return;
             }
-            addNodeInOrder(treeNode.getRight(), nodeToAdd);
+            addNodeInOrder(binaryTreeNode.getRight(), nodeToAdd);
         }
     }
 }
