@@ -1,5 +1,6 @@
 package com.joe.tree;
 
+import com.joe.datastructure.Group;
 import com.joe.tree.node.BinaryTreeNode;
 import com.joe.tree.util.TreePrinter;
 import lombok.Getter;
@@ -9,14 +10,16 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Getter
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<T extends Comparable<T>> implements Group<T, BinarySearchTree<T>> {
     private BinaryTreeNode<T> root;
 
+    @Override
     public boolean isEmpty() {
         return isNull(root);
     }
 
-    public BinarySearchTree<T> addNode(T value) {
+    @Override
+    public BinarySearchTree<T> add(T value) {
         BinaryTreeNode<T> nodeToAdd = new BinaryTreeNode<>(value);
         if (isNull(root)) {
             root = nodeToAdd;
@@ -26,14 +29,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return this;
     }
 
-    public void deleteNode(T value) {
+    @Override
+    public void remove(T value) {
         root = deleteNodeInOrder(root, new BinaryTreeNode<>(value));
     }
 
     public T getInOrderSuccessor(T value) {
         return Optional.ofNullable(inOrderSuccessor(root, new BinaryTreeNode<>(value)))
-                .map(BinaryTreeNode::getValue)
-                .orElse(null);
+                       .map(BinaryTreeNode::getValue)
+                       .orElse(null);
     }
 
     @Override
@@ -46,16 +50,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return null;
         }
 
-        if(data.compareTo(currentNode) < 0) {
+        if (data.compareTo(currentNode) < 0) {
             currentNode.setLeft(deleteNodeInOrder(currentNode.getLeft(), data));
-        } else if(data.compareTo(currentNode) > 0) {
+        } else if (data.compareTo(currentNode) > 0) {
             currentNode.setRight(deleteNodeInOrder(currentNode.getRight(), data));
         } else {
-            if(isNull(currentNode.getLeft()) && isNull(currentNode.getRight())) {
+            if (isNull(currentNode.getLeft()) && isNull(currentNode.getRight())) {
                 return null;
-            } else if(isNull(currentNode.getLeft())) {
+            } else if (isNull(currentNode.getLeft())) {
                 return currentNode.getRight();
-            } else if(isNull(currentNode.getRight())) {
+            } else if (isNull(currentNode.getRight())) {
                 return currentNode.getLeft();
             } else {
                 T minValue = findLeftMostNode(currentNode.getRight()).getValue();

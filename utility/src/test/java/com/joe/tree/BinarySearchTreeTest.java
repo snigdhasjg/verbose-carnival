@@ -10,7 +10,7 @@ class BinarySearchTreeTest {
     @Test
     void shouldConstructABinarySearchTree() {
         BinarySearchTree<Double> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(5.6).addNode(3.4).addNode(5.1).addNode(1.2).addNode(8.6).addNode(7.9);
+        binarySearchTree.add(5.6).add(3.4).add(5.1).add(1.2).add(8.6).add(7.9);
 
         String treeStructure
                 = "5.6\n" +
@@ -25,7 +25,7 @@ class BinarySearchTreeTest {
     @Test
     void shouldFindInOrderSuccessorForMiddleNode() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(20).addNode(8).addNode(22).addNode(4).addNode(12).addNode(10).addNode(14);
+        binarySearchTree.add(20).add(8).add(22).add(4).add(12).add(10).add(14);
 
         assertEquals(10, binarySearchTree.getInOrderSuccessor(8));
         assertEquals(14, binarySearchTree.getInOrderSuccessor(12));
@@ -37,8 +37,8 @@ class BinarySearchTreeTest {
     @Test
     void shouldDeleteNodeForLeaf() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(20);
-        binarySearchTree.deleteNode(20);
+        binarySearchTree.add(20);
+        binarySearchTree.remove(20);
 
         assertTrue(binarySearchTree.isEmpty());
     }
@@ -46,8 +46,8 @@ class BinarySearchTreeTest {
     @Test
     void shouldDeleteNodeHavingOnlyOneLeftChild() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(20).addNode(10);
-        binarySearchTree.deleteNode(20);
+        binarySearchTree.add(20).add(10);
+        binarySearchTree.remove(20);
 
         assertEquals("10\n", binarySearchTree.toString());
     }
@@ -55,8 +55,8 @@ class BinarySearchTreeTest {
     @Test
     void shouldDeleteNodeHavingOnlyOneRightChild() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(20).addNode(30);
-        binarySearchTree.deleteNode(20);
+        binarySearchTree.add(20).add(30);
+        binarySearchTree.remove(20);
 
         assertEquals("30\n", binarySearchTree.toString());
     }
@@ -64,8 +64,8 @@ class BinarySearchTreeTest {
     @Test
     void shouldDeleteNodeHavingBothTheChild() {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
-        binarySearchTree.addNode(20).addNode(10).addNode(30).addNode(25).addNode(40);
-        binarySearchTree.deleteNode(20);
+        binarySearchTree.add(20).add(10).add(30).add(25).add(40);
+        binarySearchTree.remove(20);
 
         String treeStructure
                 = "25\n" +
