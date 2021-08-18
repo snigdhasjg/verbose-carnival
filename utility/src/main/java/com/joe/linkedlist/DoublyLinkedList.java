@@ -34,6 +34,9 @@ public class DoublyLinkedList<T extends Comparable<T>> implements Group<T, Doubl
 
     @Override
     public void remove(T value) {
+        if (isNull(head)) {
+            return;
+        }
         DoublyLinkedNode<T> nodeToDelete = searchNode(head, tail, new DoublyLinkedNode<>(value));
         if (nonNull(nodeToDelete)) {
             if (head.equals(nodeToDelete) || tail.equals(nodeToDelete)) {
