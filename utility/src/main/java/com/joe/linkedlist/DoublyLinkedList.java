@@ -2,6 +2,7 @@ package com.joe.linkedlist;
 
 import com.joe.datastructure.Group;
 import com.joe.linkedlist.node.DoublyLinkedNode;
+import com.joe.linkedlist.util.NodePrinter;
 import lombok.Getter;
 
 import static java.util.Objects.isNull;
@@ -51,6 +52,11 @@ public class DoublyLinkedList<T extends Comparable<T>> implements Group<T, Doubl
                 previous.setNext(next);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return NodePrinter.formatNode(head);
     }
 
     private DoublyLinkedNode<T> searchNode(DoublyLinkedNode<T> left, DoublyLinkedNode<T> right, DoublyLinkedNode<T> nodeToFind) {

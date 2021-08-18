@@ -16,6 +16,8 @@ configurations {
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
+    testImplementation "org.mockito:mockito-all:${mockito_version}"
+
 }
 
 test {
