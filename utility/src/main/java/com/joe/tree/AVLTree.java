@@ -4,10 +4,12 @@ import com.joe.datastructure.Group;
 import com.joe.tree.node.AVLTreeNode;
 import com.joe.tree.util.TreePrinter;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import static java.util.Objects.isNull;
 
 @Getter
+@Slf4j
 public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
     private AVLTreeNode<T> root;
 
@@ -32,7 +34,7 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return TreePrinter.formatTree(root);
     }
 
-    public AVLTreeNode<T> leftRotation(AVLTreeNode<T> grandParent) {
+    private AVLTreeNode<T> leftRotation(AVLTreeNode<T> grandParent) {
         /*
          4 -> grandParent            6
            \                       /   \
@@ -43,15 +45,17 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         if (isNull(grandParent)) {
             return null;
         }
+        log.info("Pre Left Rotate: \n{}", TreePrinter.formatTree(grandParent));
         AVLTreeNode<T> parent = grandParent.getRight();
         grandParent.setRight(parent.getLeft());
         parent.setLeft(grandParent);
         grandParent.updateHeight();
         parent.updateHeight();
+        log.info("Post Left Rotate: \n{}", TreePrinter.formatTree(parent));
         return parent;
     }
 
-    public AVLTreeNode<T> rightRotation(AVLTreeNode<T> grandParent) {
+    private AVLTreeNode<T> rightRotation(AVLTreeNode<T> grandParent) {
         /*
                  8 -> grandParent         6
                /                        /   \
@@ -62,15 +66,17 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         if (isNull(grandParent)) {
             return null;
         }
+        log.info("Pre Right Rotate: \n{}", TreePrinter.formatTree(grandParent));
         AVLTreeNode<T> parent = grandParent.getLeft();
         grandParent.setLeft(parent.getRight());
         parent.setRight(grandParent);
         grandParent.updateHeight();
         parent.updateHeight();
+        log.info("Post Right Rotate: \n{}", TreePrinter.formatTree(parent));
         return parent;
     }
 
-    public AVLTreeNode<T> rightLeftRotation(AVLTreeNode<T> grandParent) {
+    private AVLTreeNode<T> rightLeftRotation(AVLTreeNode<T> grandParent) {
         /*
          4                        4 => leftRotate        6
            \                        \                  /   \
@@ -81,11 +87,14 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         if (isNull(grandParent)) {
             return null;
         }
+        log.info("Pre Right Left Rotation");
         grandParent.setRight(rightRotation(grandParent.getRight()));
-        return leftRotation(grandParent);
+        AVLTreeNode<T> treeNode = leftRotation(grandParent);
+        log.info("Post Right Left Rotation");
+        return treeNode;
     }
 
-    public AVLTreeNode<T> leftRightRotation(AVLTreeNode<T> grandParent) {
+    private AVLTreeNode<T> leftRightRotation(AVLTreeNode<T> grandParent) {
         /*
              8                      8 => rightRotate     6
            /                      /                    /   \
@@ -96,8 +105,11 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         if (isNull(grandParent)) {
             return null;
         }
+        log.info("Pre Left Right Rotation");
         grandParent.setLeft(leftRotation(grandParent.getLeft()));
-        return rightRotation(grandParent);
+        AVLTreeNode<T> treeNode = rightRotation(grandParent);
+        log.info("Post Left Right Rotation");
+        return treeNode;
     }
 
     private AVLTreeNode<T> addNodeInOrder(AVLTreeNode<T> avlTreeNode, AVLTreeNode<T> nodeToAdd) {

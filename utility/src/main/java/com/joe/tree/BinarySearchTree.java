@@ -20,8 +20,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Group<T, Binar
 
     @Override
     public BinarySearchTree<T> add(T value) {
-        BinaryTreeNode<T> nodeToAdd = new BinaryTreeNode<>(value);
-        root = addNodeInOrder(root, nodeToAdd);
+        root = addNodeInOrder(root, new BinaryTreeNode<>(value));
         return this;
     }
 
