@@ -1,5 +1,6 @@
 package com.joe.tree;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.joe.datastructure.Group;
 import com.joe.tree.node.AVLTreeNode;
 import com.joe.tree.util.TreePrinter;
@@ -34,7 +35,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return TreePrinter.formatTree(root);
     }
 
-    private AVLTreeNode<T> leftRotation(AVLTreeNode<T> grandParent) {
+    @VisibleForTesting
+    protected AVLTreeNode<T> leftRotation(AVLTreeNode<T> grandParent) {
         /*
          4 -> grandParent            6
            \                       /   \
@@ -55,7 +57,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return parent;
     }
 
-    private AVLTreeNode<T> rightRotation(AVLTreeNode<T> grandParent) {
+    @VisibleForTesting
+    protected AVLTreeNode<T> rightRotation(AVLTreeNode<T> grandParent) {
         /*
                  8 -> grandParent         6
                /                        /   \
@@ -76,7 +79,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return parent;
     }
 
-    private AVLTreeNode<T> rightLeftRotation(AVLTreeNode<T> grandParent) {
+    @VisibleForTesting
+    protected AVLTreeNode<T> rightLeftRotation(AVLTreeNode<T> grandParent) {
         /*
          4                        4 => leftRotate        6
            \                        \                  /   \
@@ -94,7 +98,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return treeNode;
     }
 
-    private AVLTreeNode<T> leftRightRotation(AVLTreeNode<T> grandParent) {
+    @VisibleForTesting
+    protected AVLTreeNode<T> leftRightRotation(AVLTreeNode<T> grandParent) {
         /*
              8                      8 => rightRotate     6
            /                      /                    /   \
