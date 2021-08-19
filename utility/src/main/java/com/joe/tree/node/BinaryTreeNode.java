@@ -11,7 +11,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>> {
+public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>>, IBinaryTreeNode<T> {
     @Setter
     @NonNull
     private T value;

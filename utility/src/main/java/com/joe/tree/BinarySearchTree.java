@@ -21,11 +21,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Group<T, Binar
     @Override
     public BinarySearchTree<T> add(T value) {
         BinaryTreeNode<T> nodeToAdd = new BinaryTreeNode<>(value);
-        if (isNull(root)) {
-            root = nodeToAdd;
-        } else {
-            addNodeInOrder(root, nodeToAdd);
-        }
+        root = addNodeInOrder(root, nodeToAdd);
         return this;
     }
 
@@ -97,19 +93,15 @@ public class BinarySearchTree<T extends Comparable<T>> implements Group<T, Binar
         return findLeftMostNode(currentNode.getLeft());
     }
 
-    private void addNodeInOrder(BinaryTreeNode<T> binaryTreeNode, BinaryTreeNode<T> nodeToAdd) {
-        if (nodeToAdd.compareTo(binaryTreeNode) < 0) {
-            if (isNull(binaryTreeNode.getLeft())) {
-                binaryTreeNode.setLeft(nodeToAdd);
-                return;
-            }
-            addNodeInOrder(binaryTreeNode.getLeft(), nodeToAdd);
-        } else if (nodeToAdd.compareTo(binaryTreeNode) > 0) {
-            if (isNull(binaryTreeNode.getRight())) {
-                binaryTreeNode.setRight(nodeToAdd);
-                return;
-            }
-            addNodeInOrder(binaryTreeNode.getRight(), nodeToAdd);
+    private BinaryTreeNode<T> addNodeInOrder(BinaryTreeNode<T> binaryTreeNode, BinaryTreeNode<T> nodeToAdd) {
+        if (isNull(binaryTreeNode)) {
+            return nodeToAdd;
         }
+        if (nodeToAdd.compareTo(binaryTreeNode) < 0) {
+            binaryTreeNode.setLeft(addNodeInOrder(binaryTreeNode.getLeft(), nodeToAdd));
+        } else if (nodeToAdd.compareTo(binaryTreeNode) > 0) {
+            binaryTreeNode.setRight(addNodeInOrder(binaryTreeNode.getRight(), nodeToAdd));
+        }
+        return binaryTreeNode;
     }
 }
