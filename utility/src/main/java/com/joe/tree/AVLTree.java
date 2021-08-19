@@ -32,11 +32,6 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         return TreePrinter.formatTree(root);
     }
 
-    public void calculateHeight(AVLTreeNode<T> grandParent) {
-        grandParent.updateHeight();
-        root.updateHeight();
-    }
-
     public AVLTreeNode<T> leftRotation(AVLTreeNode<T> grandParent) {
         /*
          4 -> grandParent            6
@@ -51,7 +46,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         AVLTreeNode<T> parent = grandParent.getRight();
         grandParent.setRight(parent.getLeft());
         parent.setLeft(grandParent);
-        calculateHeight(grandParent);
+        grandParent.updateHeight();
+        parent.updateHeight();
         return parent;
     }
 
@@ -69,7 +65,8 @@ public class AVLTree<T extends Comparable<T>> implements Group<T, AVLTree<T>> {
         AVLTreeNode<T> parent = grandParent.getLeft();
         grandParent.setLeft(parent.getRight());
         parent.setRight(grandParent);
-        calculateHeight(grandParent);
+        grandParent.updateHeight();
+        parent.updateHeight();
         return parent;
     }
 

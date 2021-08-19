@@ -17,7 +17,7 @@ public class TreePrinter {
 
     private static void print(IBinaryTreeNode<?> binaryTreeNode, StringBuilder buffer, String prefix, String childrenPrefix) {
         buffer.append(prefix);
-        buffer.append(binaryTreeNode.getValue());
+        buffer.append(binaryTreeNode);
         buffer.append('\n');
 
         if (nonNull(binaryTreeNode.getLeft())) {
