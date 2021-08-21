@@ -2,6 +2,7 @@ package com.joe.linkedlist;
 
 import com.joe.datastructure.Group;
 import com.joe.linkedlist.node.LinkedNode;
+import com.joe.linkedlist.util.NodePrinter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,11 @@ public class LinkedList<T extends Comparable<T>> implements Group<T, LinkedList<
         if (!isNodePresent.get()) {
             log.warn("Node not present in the list");
         }
+    }
+
+    @Override
+    public String toString() {
+        return NodePrinter.formatNode(head);
     }
 
     private LinkedNode<T> removeNode(LinkedNode<T> nodeToDelete, LinkedNode<T> temp, AtomicBoolean isNodePresent) {
