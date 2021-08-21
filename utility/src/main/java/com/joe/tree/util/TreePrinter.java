@@ -9,13 +9,13 @@ import static java.util.Objects.nonNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TreePrinter {
 
-    public static String formatTree(IBinaryTreeNode<?> rootNode) {
+    public static String formatTree(IBinaryTreeNode<?, ?> rootNode) {
         StringBuilder buffer = new StringBuilder();
         print(rootNode, buffer, "", "");
         return buffer.toString();
     }
 
-    private static void print(IBinaryTreeNode<?> binaryTreeNode, StringBuilder buffer, String prefix, String childrenPrefix) {
+    private static void print(IBinaryTreeNode<?, ?> binaryTreeNode, StringBuilder buffer, String prefix, String childrenPrefix) {
         buffer.append(prefix);
         buffer.append(binaryTreeNode);
         buffer.append('\n');

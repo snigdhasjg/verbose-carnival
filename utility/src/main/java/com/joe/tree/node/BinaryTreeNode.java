@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode
-public class BinaryTreeNode<T extends Comparable<T>> implements Comparable<BinaryTreeNode<T>>, IBinaryTreeNode<T> {
+public class BinaryTreeNode<T extends Comparable<T>> implements IBinaryTreeNode<T, BinaryTreeNode<T>> {
+
     @Setter
     @NonNull
     private T value;

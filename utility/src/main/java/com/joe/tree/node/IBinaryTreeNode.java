@@ -1,9 +1,15 @@
 package com.joe.tree.node;
 
-public interface IBinaryTreeNode<T> {
+public interface IBinaryTreeNode<T, U extends IBinaryTreeNode<T, U>> extends Comparable<U> {
     T getValue();
 
-    IBinaryTreeNode<T> getLeft();
+    U getLeft();
 
-    IBinaryTreeNode<T> getRight();
+    U getRight();
+
+    void setValue(T value);
+
+    U setLeft(U node);
+
+    U setRight(U node);
 }

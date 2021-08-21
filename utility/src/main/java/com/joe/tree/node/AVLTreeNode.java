@@ -12,7 +12,8 @@ import static java.util.Objects.isNull;
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode
-public class AVLTreeNode<T extends Comparable<T>> implements Comparable<AVLTreeNode<T>>, IBinaryTreeNode<T> {
+public class AVLTreeNode<T extends Comparable<T>> implements IBinaryTreeNode<T, AVLTreeNode<T>> {
+
     @Setter
     @NonNull
     private T value;
