@@ -1,9 +1,7 @@
 package com.joe.tree;
 
 import com.joe.tree.node.BinaryTreeNode;
-import lombok.Getter;
 
-@Getter
 public class BinarySearchTree<T extends Comparable<T>>
     extends AbstractBinarySearchTree<T, BinaryTreeNode<T>, BinarySearchTree<T>> {
 

@@ -5,12 +5,14 @@ import com.joe.tree.node.BinaryTreeNode;
 import com.joe.tree.node.IBinaryTreeNode;
 import com.joe.tree.util.TreePrinter;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
 @Getter
+@Slf4j
 public abstract class AbstractBinarySearchTree<
     T extends Comparable<T>, // Object
     U extends IBinaryTreeNode<T, U>, // Node
@@ -28,12 +30,14 @@ public abstract class AbstractBinarySearchTree<
     @SuppressWarnings("unchecked")
     public V add(T value) {
         root = addNodeInOrder(root, newInstance(value));
+        log.info("Post add action the tree looks like: \n{}", TreePrinter.formatTree(root));
         return (V) this;
     }
 
     @Override
     public void remove(T value) {
         root = deleteNodeInOrder(root, newInstance(value));
+        log.info("Post remove action the tree looks like: \n{}", TreePrinter.formatTree(root));
     }
 
     public T getInOrderSuccessor(T value) {
@@ -53,6 +57,7 @@ public abstract class AbstractBinarySearchTree<
 
     private U deleteNodeInOrder(U currentNode, U data) {
         if (isNull(currentNode)) {
+            log.warn("Node not present in the tree");
             return null;
         }
 
@@ -111,6 +116,8 @@ public abstract class AbstractBinarySearchTree<
             binaryTreeNode.setLeft(addNodeInOrder(binaryTreeNode.getLeft(), nodeToAdd));
         } else if (nodeToAdd.compareTo(binaryTreeNode) > 0) {
             binaryTreeNode.setRight(addNodeInOrder(binaryTreeNode.getRight(), nodeToAdd));
+        } else {
+            log.warn("Node already present with same value");
         }
         return postAdd(binaryTreeNode, nodeToAdd);
     }

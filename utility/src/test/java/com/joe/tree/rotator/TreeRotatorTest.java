@@ -54,4 +54,13 @@ class TreeRotatorTest {
         assertEquals(grandParent, againRightRotation.getRight().getRight());
     }
 
+    @Test
+    void shouldRotateLeftOfParentAndRightOfGrandParent() {
+        grandParent.setLeft(parent.setRight(child));
+
+        BinaryTreeNode<Integer> leftRightRotation = treeRotator.leftRightRotation(grandParent);
+        assertEquals(child, leftRightRotation);
+        assertEquals(grandParent, leftRightRotation.getRight());
+        assertEquals(parent, leftRightRotation.getLeft());
+    }
 }

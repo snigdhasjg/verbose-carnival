@@ -3,10 +3,14 @@ package com.joe.linkedlist;
 import com.joe.datastructure.Group;
 import com.joe.linkedlist.node.LinkedNode;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
+@Slf4j
 public class LinkedList<T extends Comparable<T>> implements Group<T, LinkedList<T>> {
     @Getter
     private LinkedNode<T> head;
@@ -40,19 +44,24 @@ public class LinkedList<T extends Comparable<T>> implements Group<T, LinkedList<
             head = head.getNext();
             return;
         }
-        removeNode(nodeToDelete, head.getNext());
+        AtomicBoolean isNodePresent = new AtomicBoolean(false);
+        removeNode(nodeToDelete, head.getNext(), isNodePresent);
+        if (!isNodePresent.get()) {
+            log.warn("Node not present in the list");
+        }
     }
 
-    private LinkedNode<T> removeNode(LinkedNode<T> nodeToDelete, LinkedNode<T> temp) {
+    private LinkedNode<T> removeNode(LinkedNode<T> nodeToDelete, LinkedNode<T> temp, AtomicBoolean isNodePresent) {
         if (isNull(temp)) {
             return null;
         }
         if (temp.equals(nodeToDelete)) {
             return temp;
         }
-        LinkedNode<T> node = removeNode(nodeToDelete, temp.getNext());
+        LinkedNode<T> node = removeNode(nodeToDelete, temp.getNext(), isNodePresent);
         if (nonNull(node)) {
             temp.setNext(node.getNext());
+            isNodePresent.set(true);
         }
         return null;
     }

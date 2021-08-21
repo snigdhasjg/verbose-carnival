@@ -2,9 +2,7 @@ package com.joe.tree;
 
 import com.joe.tree.node.AVLTreeNode;
 import com.joe.tree.rotator.AVLTreeRotator;
-import lombok.Getter;
 
-@Getter
 public class AVLTree<T extends Comparable<T>> extends AbstractBinarySearchTree<T, AVLTreeNode<T>, AVLTree<T>> {
     private final AVLTreeRotator<T> avlTreeRotator = new AVLTreeRotator<>();
 

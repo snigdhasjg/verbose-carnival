@@ -4,11 +4,13 @@ import com.joe.datastructure.Group;
 import com.joe.linkedlist.node.DoublyLinkedNode;
 import com.joe.linkedlist.util.NodePrinter;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Getter
+@Slf4j
 public class DoublyLinkedList<T extends Comparable<T>> implements Group<T, DoublyLinkedList<T>> {
     private DoublyLinkedNode<T> head;
     private DoublyLinkedNode<T> tail;
@@ -54,6 +56,8 @@ public class DoublyLinkedList<T extends Comparable<T>> implements Group<T, Doubl
                 next.setPrevious(previous);
                 previous.setNext(next);
             }
+        } else {
+            log.warn("Node not present in the list");
         }
     }
 

@@ -9,7 +9,9 @@ public class TreePrinterTest {
     @Test
     public void shouldPrintTreeHavingNoChild() {
         BinaryTreeNode<String> rootNode = new BinaryTreeNode<>("Value");
-        assertEquals("Value\n", TreePrinter.formatTree(rootNode));
+        assertEquals("Value\n"
+            + "├── <empty>\n"
+            + "└── <empty>\n", TreePrinter.formatTree(rootNode));
     }
 
     @Test
@@ -18,7 +20,12 @@ public class TreePrinterTest {
                 new BinaryTreeNode<>("Value1")
                         .setRight(new BinaryTreeNode<>("Value2"));
 
-        assertEquals("Value1\n└── Value2\n", TreePrinter.formatTree(binaryTreeNode));
+        assertEquals("Value1\n"
+                + "├── Value2\n"
+                + "│   ├── <empty>\n"
+                + "│   └── <empty>\n"
+                + "└── <empty>\n",
+            TreePrinter.formatTree(binaryTreeNode));
     }
 
     @Test
@@ -27,7 +34,12 @@ public class TreePrinterTest {
                 new BinaryTreeNode<>("Value1")
                         .setLeft(new BinaryTreeNode<>("Value2"));
 
-        assertEquals("Value1\n└── Value2\n", TreePrinter.formatTree(binaryTreeNode));
+        assertEquals("Value1\n"
+                + "├── <empty>\n"
+                + "└── Value2\n"
+                + "\t├── <empty>\n"
+                + "\t└── <empty>\n",
+            TreePrinter.formatTree(binaryTreeNode));
     }
 
     @Test
@@ -37,7 +49,13 @@ public class TreePrinterTest {
                         .setLeft(new BinaryTreeNode<>("Value2"))
                         .setRight(new BinaryTreeNode<>("Value3"));
 
-        assertEquals("Value1\n├── Value3\n└── Value2\n", TreePrinter.formatTree(binaryTreeNode));
+        assertEquals("Value1\n"
+            + "├── Value3\n"
+            + "│   ├── <empty>\n"
+            + "│   └── <empty>\n"
+            + "└── Value2\n"
+            + "\t├── <empty>\n"
+            + "\t└── <empty>\n", TreePrinter.formatTree(binaryTreeNode));
     }
 }
 
